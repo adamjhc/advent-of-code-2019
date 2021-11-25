@@ -1,4 +1,4 @@
-# Advent of Code 2020
+# Advent of Code 2019
 
 ![Build](https://github.com/adamjhc/advent-of-code-2019/workflows/Build/badge.svg)
 
