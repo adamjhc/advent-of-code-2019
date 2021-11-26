@@ -17,12 +17,12 @@ fn part_1() -> usize {
     loop {
         match intcode[pc] {
             1 => {
-                let output_pos = intcode[pc + 3];
-                intcode[output_pos] = intcode[intcode[pc + 1]] + intcode[intcode[pc + 2]]
+                let output_addr = intcode[pc + 3];
+                intcode[output_addr] = intcode[intcode[pc + 1]] + intcode[intcode[pc + 2]]
             }
             2 => {
-                let output_pos = intcode[pc + 3];
-                intcode[output_pos] = intcode[intcode[pc + 1]] * intcode[intcode[pc + 2]]
+                let output_addr = intcode[pc + 3];
+                intcode[output_addr] = intcode[intcode[pc + 1]] * intcode[intcode[pc + 2]]
             }
             99 => {
                 break;
