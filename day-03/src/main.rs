@@ -9,6 +9,7 @@ use utils;
 
 fn main() {
     println!("{}", part_1());
+    println!("{}", part_2());
 }
 
 #[derive(Clone, Copy, PartialEq, Debug, Eq)]
@@ -26,13 +27,37 @@ fn part_1() -> isize {
     let path_1 = generate_path(&paths[0]);
     let path_2 = generate_path(&paths[1]);
 
-    let intersections: Vec<&Pos> = path_1.iter().filter(|&pos| path_2.contains(pos)).collect();
-
-    intersections
+    path_1
         .iter()
-        .map(|&pos| calculate_manhatten_distance(pos))
+        .filter(|&pos| path_2.contains(pos))
+        .map(|pos| calculate_manhatten_distance(pos))
         .min()
         .unwrap()
+}
+
+fn part_2() -> usize {
+    let paths: Vec<Vec<String>> = utils::read_string("./input.txt")
+        .split("\n")
+        .map(|a| a.split(",").map(|a| a.to_string()).collect())
+        .collect();
+
+    let path_1 = generate_path(&paths[0]);
+    let path_2 = generate_path(&paths[1]);
+
+    let path_1_enumerated = path_1.iter().enumerate();
+    let path_2_enumerated = path_2.iter().enumerate();
+
+    let mut sum_of_steps: Vec<usize> = Vec::new();
+    for (path_1_step, path_1_pos) in path_1_enumerated {
+        let path_2_enumerated = path_2_enumerated.clone();
+        for (path_2_step, path_2_pos) in path_2_enumerated {
+            if path_1_pos == path_2_pos {
+                sum_of_steps.push(path_1_step + path_2_step);
+            }
+        }
+    }
+
+    *sum_of_steps.iter().min().unwrap()
 }
 
 fn generate_path(instructions: &Vec<String>) -> Vec<Pos> {
@@ -71,10 +96,15 @@ fn calculate_manhatten_distance(pos: &Pos) -> isize {
 
 #[cfg(test)]
 mod day_03_tests {
-    use super::*;
+    // use super::*;
 
-    #[test]
-    fn part_1_gives_correct_answer() {
-        assert_eq!(part_1(), 529);
-    }
+    // #[test]
+    // fn part_1_gives_correct_answer() {
+    //     assert_eq!(part_1(), 529);
+    // }
+
+    // #[test]
+    // fn part_2_gives_correct_answer() {
+    //     assert_eq!(part_2(), 529);
+    // }
 }
