@@ -69,16 +69,6 @@ fn calculate_manhatten_distance(pos: &Pos) -> isize {
     pos.x.abs() + pos.y.abs()
 }
 
-trait Bound {
-    fn is_between(self: Self, start: usize, end: usize) -> bool;
-}
-
-impl Bound for usize {
-    fn is_between(self: Self, start: usize, end: usize) -> bool {
-        self > start && self < end
-    }
-}
-
 #[cfg(test)]
 mod day_03_tests {
     use super::*;
